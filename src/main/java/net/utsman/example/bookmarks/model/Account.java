@@ -1,17 +1,16 @@
 package net.utsman.example.bookmarks.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@NoArgsConstructor
 @Entity
 public class Account {
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private Set<Bookmark> bookmarks = new HashSet<>();
     @Id
     @GeneratedValue
@@ -19,8 +18,6 @@ public class Account {
     private String username;
     @JsonIgnore
     private String password;
-
-    Account(){}
 
     public Account(String username, String password) {
         this.username = username;

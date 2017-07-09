@@ -1,17 +1,19 @@
 package net.utsman.example.bookmarks.controller;
 
 import net.utsman.example.bookmarks.exception.UserNotFoundException;
+import net.utsman.example.bookmarks.model.Account;
 import net.utsman.example.bookmarks.model.Bookmark;
 import net.utsman.example.bookmarks.repository.AccountRepository;
 import net.utsman.example.bookmarks.repository.BookmarkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Collection;
 
+// TODO validateUser aop
 @RestController
 @RequestMapping("/{userId}/bookmarks")
 public class BookmarkRestController {
@@ -29,6 +31,32 @@ public class BookmarkRestController {
     Collection<Bookmark> readBookmarks(@PathVariable String userId){
         this.validateUser(userId);
         return this.bookmarkRepository.findByAccountUsername(userId);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    ResponseEntity<?> add(@PathVariable String userId, @RequestBody Bookmark input) {
+        this.validateUser(userId);
+        return this.accountRepository.findByUsername(userId)
+                .map(account -> {
+                    Bookmark bookmark = bookmarkRepository.save(createBookmark(input, account));
+                    return ResponseEntity.created(getLocationById(bookmark)).build();
+                })
+                .orElse(ResponseEntity.noContent().build());
+    }
+
+    private URI getLocationById(Bookmark bookmark) {
+        return ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(bookmark.getId()).toUri();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{bookmarkId}")
+    Bookmark readBookmark(@PathVariable String userId, @PathVariable Long bookmarkId) {
+        this.validateUser(userId);
+        return this.bookmarkRepository.findOne(bookmarkId);
+    }
+
+    private Bookmark createBookmark(Bookmark bookmark, Account account) {
+        return new Bookmark(account, bookmark.getUri(), bookmark.getDescription());
     }
 
     private void validateUser(String userId) {

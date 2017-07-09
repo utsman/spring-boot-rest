@@ -1,12 +1,14 @@
 package net.utsman.example.bookmarks.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+@NoArgsConstructor
 @Entity
 public class Bookmark {
     @JsonIgnore
@@ -17,8 +19,6 @@ public class Bookmark {
     private Long id;
     private String uri;
     private String description;
-
-    Bookmark(){}
 
     public Bookmark(Account account, String uri, String description) {
         this.account = account;
