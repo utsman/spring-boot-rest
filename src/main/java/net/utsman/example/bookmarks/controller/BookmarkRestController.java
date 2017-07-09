@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Collection;
 
+// TODO validateUser aop
 @RestController
 @RequestMapping("/{userId}/bookmarks")
 public class BookmarkRestController {
@@ -38,13 +39,15 @@ public class BookmarkRestController {
         return this.accountRepository.findByUsername(userId)
                 .map(account -> {
                     Bookmark bookmark = bookmarkRepository.save(createBookmark(input, account));
-                    URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                            .path("/{id}").buildAndExpand(bookmark.getId()).toUri();
-                    return ResponseEntity.created(location).build();
+                    return ResponseEntity.created(getLocationById(bookmark)).build();
                 })
                 .orElse(ResponseEntity.noContent().build());
     }
 
+    private URI getLocationById(Bookmark bookmark) {
+        return ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(bookmark.getId()).toUri();
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{bookmarkId}")
     Bookmark readBookmark(@PathVariable String userId, @PathVariable Long bookmarkId) {
