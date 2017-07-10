@@ -13,7 +13,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Collection;
 
-// TODO validateUser aop
 @RestController
 @RequestMapping("/{userId}/bookmarks")
 public class BookmarkRestController {
