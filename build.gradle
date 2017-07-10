@@ -10,26 +10,44 @@ buildscript {
 	}
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
-
-repositories {
-	mavenCentral()
-}
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.13'
 }
 
+allprojects {
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	apply plugin: 'idea'
+	apply plugin: 'org.springframework.boot'
 
-dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compileOnly 'org.projectlombok:lombok:1.16.18'
-	runtime('com.h2database:h2')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	repositories {
+		mavenCentral()
+	}
+
+	version = '0.0.1-SNAPSHOT'
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+}
+
+
+subprojects {
+	dependencies {
+		compile('org.springframework.boot:spring-boot-starter-data-jpa')
+		compile('org.springframework.boot:spring-boot-starter-web')
+		compile('org.springframework.boot:spring-boot-starter-security')
+
+		compileOnly ('org.projectlombok:lombok:1.16.18')
+
+		runtime('com.h2database:h2')
+
+		testCompile('org.springframework.boot:spring-boot-starter-test')
+	}
+}
+
+project(':rest') {
+
+}
+project(':hateos') {
+
 }
