@@ -1,4 +1,4 @@
-package net.utsman.example.bookmarks.model;
+package net.utsman.example.bookmarks.core.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;

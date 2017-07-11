@@ -43,14 +43,17 @@ subprojects {
 		testCompile('org.springframework.boot:spring-boot-starter-test')
 	}
 }
+project(':core') {
 
+}
 project(':rest') {
-
+	dependencies {
+		compile project(':core')
+	}
 }
 project(':hateoas') {
 	dependencies {
-		compile project(':rest')
-//		compile 'org.springframework.hateoas:spring-hateoas:0.23.0.RELEASE'
+		compile project(':core')
 		compile('org.springframework.boot:spring-boot-starter-hateoas')
 	}
 }

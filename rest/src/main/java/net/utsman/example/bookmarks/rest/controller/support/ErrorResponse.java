@@ -1,4 +1,4 @@
-package net.utsman.example.bookmarks.controller.support;
+package net.utsman.example.bookmarks.rest.controller.support;
 
 public class ErrorResponse {
     private final String message;

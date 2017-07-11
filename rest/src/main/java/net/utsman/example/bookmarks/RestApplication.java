@@ -1,9 +1,9 @@
 package net.utsman.example.bookmarks;
 
-import net.utsman.example.bookmarks.model.Account;
-import net.utsman.example.bookmarks.model.Bookmark;
-import net.utsman.example.bookmarks.repository.AccountRepository;
-import net.utsman.example.bookmarks.repository.BookmarkRepository;
+import net.utsman.example.bookmarks.core.model.Account;
+import net.utsman.example.bookmarks.core.model.Bookmark;
+import net.utsman.example.bookmarks.core.repository.AccountRepository;
+import net.utsman.example.bookmarks.core.repository.BookmarkRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,8 +25,8 @@ public class RestApplication {
 		List<String> names = Arrays.asList("jhoeller", "dsyer", "pwebb", "ogierke", "rwinch", "mfisher", "mpollack", "jlong");
 		return args -> names.forEach(name -> {
 			Account account = accountRepository.save(new Account(name, "password"));
-			bookmarkRepository.save(new Bookmark(account, "http://bookmark.com/1/" + account, "A description"));
-			bookmarkRepository.save(new Bookmark(account, "http://bookmark.com/2/" + account, "B description"));
+			bookmarkRepository.save(new Bookmark(account, "http://bookmark.com/1/" + name, "A description"));
+			bookmarkRepository.save(new Bookmark(account, "http://bookmark.com/2/" + name, "B description"));
 		});
 	}
 }

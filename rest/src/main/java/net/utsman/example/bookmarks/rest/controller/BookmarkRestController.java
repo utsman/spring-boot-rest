@@ -1,10 +1,10 @@
-package net.utsman.example.bookmarks.controller;
+package net.utsman.example.bookmarks.rest.controller;
 
-import net.utsman.example.bookmarks.exception.UserNotFoundException;
-import net.utsman.example.bookmarks.model.Account;
-import net.utsman.example.bookmarks.model.Bookmark;
-import net.utsman.example.bookmarks.repository.AccountRepository;
-import net.utsman.example.bookmarks.repository.BookmarkRepository;
+import net.utsman.example.bookmarks.core.exception.UserNotFoundException;
+import net.utsman.example.bookmarks.core.model.Account;
+import net.utsman.example.bookmarks.core.model.Bookmark;
+import net.utsman.example.bookmarks.core.repository.AccountRepository;
+import net.utsman.example.bookmarks.core.repository.BookmarkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package net.utsman.example.bookmarks.exception;
+package net.utsman.example.bookmarks.core.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
