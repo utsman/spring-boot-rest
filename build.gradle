@@ -53,7 +53,13 @@ project(':rest') {
 }
 project(':hateoas') {
 	dependencies {
-		compile project(':core')
 		compile('org.springframework.boot:spring-boot-starter-hateoas')
+		compile project(':core')
+	}
+}
+project(':security') {
+	dependencies {
+		compile('org.springframework.boot:spring-boot-starter-security')
+		compile project(':core')
 	}
 }

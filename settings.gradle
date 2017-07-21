@@ -3,3 +3,4 @@ rootProject.name = 'spring-boot-rest'
 include "core"
 include "rest"
 include "hateoas"
+include "security"
